@@ -2,6 +2,7 @@
 
 from engine import *
 import threading
+from draw_board import *
 
 """
 Steps to implement:
@@ -16,7 +17,7 @@ currentGame = Game( )
 
 def step(f_stop):
     playing = currentGame.tick()
-    #draw the game
+    draw(currentGame)
     if not playing:
         f_stop.set()
     if not f_stop.is_set():
