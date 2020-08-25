@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+from engine import *
+import threading
+
 """
 Steps to implement:
 
@@ -8,3 +11,17 @@ Steps to implement:
     3.  Build async event listener on stdin?
 
 """
+
+currentGame = Game( )
+
+def step(f_stop):
+    playing = currentGame.tick()
+    #draw the game
+    if not playing:
+        f_stop.set()
+    if not f_stop.is_set():
+        threading.Timer(2, step, [f_stop]).start()
+
+f_stop = threading.Event()
+step(f_stop)
+print('Ran successfully')
