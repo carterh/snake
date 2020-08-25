@@ -25,4 +25,3 @@ def step(f_stop):
 
 f_stop = threading.Event()
 step(f_stop)
-print('Ran successfully')
