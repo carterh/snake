@@ -3,18 +3,7 @@
 from engine import *
 import threading
 from draw_board import *
-
-def process_keypress(key, game):
-    if key == 'w':
-        game.change_direction(Direction.UP)
-    elif key == 's':
-        game.change_direction(Direction.DOWN)
-    elif key == 'a':
-        game.change_direction(Direction.LEFT)
-    elif key == 'd':
-        game.change_direction(Direction.RIGHT)
-
-currentGame = Game(20,20)
+from keyboard_controller import *
 
 def step(f_stop, currentGame):
     playing = currentGame.tick()
