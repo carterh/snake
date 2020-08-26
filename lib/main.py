@@ -4,15 +4,6 @@ from engine import *
 import threading
 from draw_board import *
 
-"""
-Steps to implement:
-
-    1.  Build game engine
-    2.  Build rendering
-    3.  Build async event listener on stdin?
-
-"""
-
 def process_keypress(key, game):
     if key == 'w':
         game.change_direction(Direction.UP)
@@ -25,16 +16,21 @@ def process_keypress(key, game):
 
 currentGame = Game(20,20)
 
-def step(f_stop):
+def step(f_stop, currentGame):
     playing = currentGame.tick()
     draw(currentGame)
     if not playing:
         f_stop.set()
     if not f_stop.is_set():
-        threading.Timer(0.5, step, [f_stop]).start()
+        threading.Timer(0.5, step, [f_stop, currentGame]).start()
 
-f_stop = threading.Event()
-step(f_stop)
-while not f_stop.is_set():
-    keypress = input()
-    process_keypress(keypress, currentGame)
+def main():
+    currentGame = Game(20,20)
+    f_stop = threading.Event()
+    step(f_stop, currentGame)
+    while not f_stop.is_set():
+        keypress = input()
+        process_keypress(keypress, currentGame)
+
+if __name__ == '__main__':
+    main()
