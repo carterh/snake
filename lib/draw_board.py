@@ -1,8 +1,8 @@
 from engine import *
-ROWS = 20
-COLS = 20
 
 def draw(game_engine):
+    ROWS = game_engine.rows
+    COLS = game_engine.cols
     print(' ' + ('_'*COLS) + ' ')
     #CR: fix the hard-coded indices
     for row in range(ROWS-1,-1,-1):

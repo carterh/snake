@@ -2,11 +2,6 @@ from enum import *
 from collections import deque
 import random
 
-ROWS = 20
-COLS = 20
-STARTROW = 9
-STARTCOL = 9
-
 class Direction(Enum):
     UP = auto()
     DOWN = auto()
@@ -26,8 +21,9 @@ class Direction(Enum):
         return (row, col)
 
 class Snake:
-    def __init__(self):
-        self.body = deque([(row, STARTCOL) for row in [STARTROW, STARTROW-1, STARTROW-2]])
+    def __init__(self, head):
+        startRow, startCol = head
+        self.body = deque([(row, startCol) for row in [startRow, startRow-1, startRow-2]])
         self.direction = Direction.UP
 
     def move_snake(self, growing):
@@ -37,15 +33,20 @@ class Snake:
             self.body.pop()
 
 class Game:
-    def __init__(self):
-        self.snake = Snake()
-        self.apple = (15,STARTCOL)
+    def __init__(self, rows, cols):
+        self.snake = Snake((rows//2,cols//2))
         self.left_to_grow = 0
+        self.rows = rows
+        self.cols = cols
+        self.apple = self.random_coord()
     
+    def random_coord(self):
+        return (random.randint(0,self.rows-1), random.randint(0,self.cols-1))
+
     def check_next_location_valid(self):
         head = self.snake.body[0]
         newRow, newCol = self.snake.direction.change_coordinates_in_direction(head)
-        if newRow < 0 or newRow >= ROWS or newCol < 0 or newCol >= COLS:
+        if newRow < 0 or newRow >= self.rows or newCol < 0 or newCol >= self.cols:
             return False
         else:
             return True
@@ -69,14 +70,14 @@ class Game:
             return True
 
     def check_for_win(self):
-        return len(self.snake.body) == ROWS*COLS
+        return len(self.snake.body) == self.rows*self.cols
        
     def update_apple(self):
         head = self.snake.body[0]
         if head == self.apple:
-            newApple = (random.randint(0,ROWS), random.randint(0,COLS))
+            newApple = self.random_coord()
             while self.inside_body(newApple):
-                newApple = (random.randint(0,ROWS), random.randint(0,COLS))
+                newApple = self.random_coord()
             self.apple = newApple
             self.left_to_grow += 2
 
