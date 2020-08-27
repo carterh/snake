@@ -1,10 +1,16 @@
 from engine import *
 
-def draw(game_engine):
+def draw(game_engine, stdscr):
     ROWS = game_engine.rows
     COLS = game_engine.cols
-    print(' ' + ('_'*COLS) + ' ')
-    #CR: fix the hard-coded indices
+
+    #Clear the terminal
+    stdscr.clear()
+
+    #Draw the top line
+    stdscr.addstr(0,1,' ' + ('_'*COLS) + ' ')
+    
+    #Draw the board
     for row in range(ROWS-1,-1,-1):
         rowChars = ['|']
         for col in range(COLS):
@@ -15,5 +21,10 @@ def draw(game_engine):
             else:
                 rowChars.append(' ')
         rowChars.append('|')
-        print(''.join(rowChars))
-    print('|'+ ('-'*COLS) + '|')
+        stdscr.addstr(ROWS-row,1,''.join(rowChars))
+
+    #Draw the bottom line
+    stdscr.addstr(ROWS+1,1,'|'+ ('-'*COLS) + '|')
+
+    #Refresh the terminal screen
+    stdscr.refresh()
