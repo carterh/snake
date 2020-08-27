@@ -3,7 +3,7 @@
 from engine import Game
 import threading
 from draw_board import draw
-from keyboard_controller import *
+from keyboard_controller import listen_for_keypress
 from curses import wrapper
 
 def step(f_stop, currentGame, stdscr):
