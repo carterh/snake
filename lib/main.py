@@ -17,9 +17,7 @@ def main():
     currentGame = Game(20,20)
     f_stop = threading.Event()
     step(f_stop, currentGame)
-    while not f_stop.is_set():
-        keypress = input()
-        process_keypress(keypress, currentGame)
+    listen_for_keypress(currentGame)
 
 if __name__ == '__main__':
     main()
