@@ -1,5 +1,3 @@
-from engine import *
-
 def draw(game_engine, stdscr):
     ROWS = game_engine.rows
     COLS = game_engine.cols

@@ -1,4 +1,4 @@
-from engine import *
+from engine import Direction
 from curses import KEY_UP,KEY_DOWN,KEY_LEFT,KEY_RIGHT
 
 def process_keypress(key, game):
