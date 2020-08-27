@@ -1,4 +1,4 @@
-from enum import *
+from enum import Enum,auto
 from collections import deque
 import random
 
